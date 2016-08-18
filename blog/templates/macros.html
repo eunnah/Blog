@@ -1,3 +1,4 @@
+
 {% macro render_entry(entry) %}
 <div class="row">
     <div class="col-md-2 text-right metadata">
@@ -9,7 +10,7 @@
     </div>
     <div class="col-md-10">
         <h1>
-            {{ entry.title }}
+            <a href="{{ url_for('single_entry', id=entry.id) }}">{{ entry.title }}</a>
         </h1>
         {{ entry.content | markdown }}
     </div>
