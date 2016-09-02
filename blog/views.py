@@ -82,3 +82,20 @@ def single_entry(id):
         return "Entry not found", 404 
     return render_template("single_entry.html", entry = entry)
     
+    
+@app.route("/entry/<id>/edit", methods=["GET"])
+@login_required
+def edit_entry_get(id):
+    entry = session.query(Entry).get(id)
+    if not entry:
+        return "Entry not found", 404 
+    return render_template("edit_entry.html", entry = entry)
+
+@app.route("/entry/<id>/edit", methods=["POST"])
+@login_required
+def edit_entry_post(id):
+    entry = session.query(Entry).get(id)
+    entry.title = request.form["title"]
+    entry.content = request.form["content"]
+    session.commit()
+    return redirect(url_for("entries"))
